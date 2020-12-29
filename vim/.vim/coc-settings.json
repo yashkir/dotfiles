@@ -1,0 +1,10 @@
+{
+  "tsserver.reportStyleChecksAsWarnings": false,
+  "python.autoComplete.extraPaths": ["/home/yashkir/.local/lib/python3.8/site-packages"],
+  "python.jediEnabled": true,
+  "python.jediShortcut": "JD",
+  "python.jediPath": "/home/yashkir/.local/lib/python3.8/site-packages/",
+  "javascript.suggestionActions.enabled": false,
+  "typescript.showUnused": false,
+  "signature.hideOnTextChange": true
+}

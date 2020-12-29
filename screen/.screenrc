@@ -1,0 +1,3 @@
+shelltitle "$ |bash" # make screen assign window titles automatically
+hardstatus alwayslastline "%w" # show all window titles at bottom line of term
+altscreen

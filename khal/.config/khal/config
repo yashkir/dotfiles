@@ -1,0 +1,22 @@
+[default]
+default_calendar = fastmail
+highlight_event_days = True
+timedelta = 14d
+
+[calendars]
+
+[[private]]
+path = /home/yashkir/.local/share/khal/calendars/private
+type = calendar
+
+[[fastmail]]
+path =/home/yashkir/.calendars/72dbbe2f-1312-43af-910e-9b041421ed4a/
+color = yellow
+type = calendar
+
+[locale]
+timeformat = %H:%M
+dateformat = %Y-%m-%d
+longdateformat = %Y-%m-%d
+datetimeformat = %Y-%m-%d %H:%M
+longdatetimeformat = %Y-%m-%d %H:%M
