@@ -47,6 +47,7 @@ Plug 'dbeniamine/todo.txt-vim'
 Plug 'puremourning/vimspector' "TODO check it out
 Plug 'szw/vim-maximizer'
 Plug 'vim-syntastic/syntastic'
+Plug 'liuchengxu/vim-which-key'
 call plug#end()
 "}}}
 "{{{--- BASIC SETs ---
@@ -94,16 +95,20 @@ let g:termdebug_wide = 163
 nnoremap <SPACE> <Nop>
 let mapleader = " "
 let maplocalleader = "\\"
+nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
+nnoremap <silent> <localleader> :<c-u>WhichKey  '\\'<CR>
 map <leader>ve :e $HOME/.vimrc<CR>
 map <leader>vs :so $HOME/.vimrc<CR>
 
-map <leader>D :put =strftime('# %a %Y-%m-%d %H:%M')<CR>
+map <leader>D :put =strftime('# %a %Y-%m-%d %H:%M')<CR>kdd
 "map <leader>D :put =strftime('# %a %Y-%m-%d %H:%M:%S%z')<CR>
 "Run current file
 map <leader>rp :w<CR>:!g++ % -o %< && ./%<<CR>
 map <leader>rc :w<CR>:!gcc % -o %< && ./%<<CR>
 map <leader>rdc :w<CR>:!gcc -g % -o %< && gdb ./%<<CR>
 map <leader>rr :w<CR>:!%:p<CR>
+map <leader>ra :w<CR>:!rustc % && ./%<<CR>
+map <leader>ru :w<CR>:!cargo run<CR>
 
 "map <Space> za
 
