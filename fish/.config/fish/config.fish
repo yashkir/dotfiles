@@ -20,3 +20,5 @@ set -g EDITOR /usr/bin/vim
 
 alias t todo.sh
 alias tl "todo.sh ls"
+alias repo "cd ~/projects/GA/"
+alias ls "ls --color --group-directories-first"

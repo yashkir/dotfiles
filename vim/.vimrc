@@ -23,6 +23,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'fannheyward/coc-marketplace'
 " - Special files -
 Plug 'vimwiki/vimwiki'
+Plug 'mattn/emmet-vim'
 "Plug 'tools-life/taskwiki'
 Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 " - Appearance/syntax -
@@ -43,11 +44,14 @@ Plug 'eliba2/vim-node-inspect'
 Plug 'vuciv/vim-bujo'
 "Plug 'leafgarland/typescript-vim'
 Plug 'Alok/notational-fzf-vim'
-Plug 'dbeniamine/todo.txt-vim'
+"Plug 'dbeniamine/todo.txt-vim'
 Plug 'puremourning/vimspector' "TODO check it out
 Plug 'szw/vim-maximizer'
 Plug 'vim-syntastic/syntastic'
 Plug 'liuchengxu/vim-which-key'
+"Plug 'dbeniamine/cheat.sh-vim'
+Plug 'godlygeek/tabular'
+"Plug 'plasticboy/vim-markdown'
 call plug#end()
 "}}}
 "{{{--- BASIC SETs ---
@@ -57,6 +61,8 @@ set shiftwidth=0
 set expandtab
 set smarttab
 set smartindent
+set hidden
+set scrolloff=8
 set laststatus=2
 set showcmd
 set showmode
@@ -122,6 +128,14 @@ map <leader>td :e ~/projects/todo/todo.txt<CR>
 " greatest remap
 vnoremap <leader>p "_dP
 
+" ALT j, ALT k to move lines
+nnoremap <M-j> :m+1<CR>==
+nnoremap <M-k> :m-2<CR>==
+inoremap <M-j> <Esc>:m+1<CR>==gi
+inoremap <M-k> <Esc>:m-2<CR>==gi
+vnoremap <M-j> :m'>+1<CR>gv=gv
+vnoremap <M-k> :m'<-2<CR>gv=gv
+
 " --- Plugins
 map <leader>g :GitGutterToggle<CR>
 map <leader>p :Files ~/projects/<CR>
@@ -132,6 +146,7 @@ map <leader>G :Git<CR>
 map <leader>fh :History<CR>
 map <leader>n :NV!<CR>
 nnoremap <C-p> :GFiles<CR>
+nnoremap <leader><C-p> :Rg<CR>
 nmap <C-S> <Plug>BujoAddnormal
 nmap <C-Q> <Plug>BujoChecknormal
 nmap <leader>dj <Plug>VimspectorStepOver

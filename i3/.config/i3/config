@@ -151,7 +151,12 @@ bar {
     strip_workspace_name no
     strip_workspace_numbers no
     colors {
-        urgent_workspace #2f343a #ffff00 #ffffff
+        urgent_workspace #2f343a #ff6600 #ffffff
     }
     status_command i3status
 }
+
+# Force zoom onto one workspace and block focus stealing
+focus_on_window_activation urgent
+assign [class="zoom"] 3:com
+no_focus [class="zoom"]
