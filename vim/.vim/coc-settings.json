@@ -1,4 +1,5 @@
 {
+  "suggest.triggerCompletionWait": 500,
   "tsserver.reportStyleChecksAsWarnings": false,
   "python.autoComplete.extraPaths": ["/home/yashkir/.local/lib/python3.8/site-packages"],
   "python.jediEnabled": true,
@@ -6,5 +7,9 @@
   "python.jediPath": "/home/yashkir/.local/lib/python3.8/site-packages/",
   "javascript.suggestionActions.enabled": false,
   "typescript.showUnused": false,
-  "signature.hideOnTextChange": true
+  "signature.hideOnTextChange": true,
+  "emmet.includeLanguages": {
+    "jst": "html",
+    "htmldjango": "html"
+  }
 }

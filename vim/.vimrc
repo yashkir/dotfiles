@@ -37,6 +37,7 @@ Plug 'owickstrom/vim-colors-paramount'
 Plug 'yashkir/photon.vim'
 Plug 'adelarsq/vim-matchit'
 Plug 'preservim/nerdcommenter'
+Plug 'preservim/nerdtree'
 "Plug 'tmhedberg/SimpylFold'
 "Plug 'ycm-core/YouCompleteMe'
 "Plug 'cohama/lexima.vim'
@@ -51,6 +52,8 @@ Plug 'vim-syntastic/syntastic'
 Plug 'liuchengxu/vim-which-key'
 "Plug 'dbeniamine/cheat.sh-vim'
 Plug 'godlygeek/tabular'
+Plug 'ledger/vim-ledger'
+Plug 'SirVer/ultisnips'
 "Plug 'plasticboy/vim-markdown'
 call plug#end()
 "}}}
@@ -98,6 +101,7 @@ set undodir=~/.vim/undo/
 let g:termdebug_wide = 163
 "}}}
 "{{{--- BINDS ---
+nmap W :w<cr>
 nnoremap <SPACE> <Nop>
 let mapleader = " "
 let maplocalleader = "\\"
@@ -115,10 +119,11 @@ map <leader>rdc :w<CR>:!gcc -g % -o %< && gdb ./%<<CR>
 map <leader>rr :w<CR>:!%:p<CR>
 map <leader>ra :w<CR>:!rustc % && ./%<<CR>
 map <leader>ru :w<CR>:!cargo run<CR>
+nmap <leader><rl> :exec '!'.getline('.')
 
 "map <Space> za
 
-map <leader>m :w<CR>:!make test<CR>
+map <leader>mm :w<CR>:make!<CR>
 map <leader>ty :w<CR>:!yarn run test<CR>
 map <leader>w :w<CR>
 map <leader>h :set hlsearch!<CR>
@@ -160,21 +165,29 @@ nmap <leader>sr :SyntasticReset<CR>
 map <leader>cn :cn<CR>
 map <leader>cp :cp<CR>
 
+" nice pastes
+nmap <silent> <leader>p* :set paste<CR>"*p:set nopaste<CR>
+nmap <silent> <leader>p+ :set paste<CR>"+p:set nopaste<CR>
+
 "}}}}}}
 "{{{--- AutoCMD ---
 ""TODO move this stuff out to appropriate directories
 autocmd FileType make setlocal noexpandtab
 autocmd FileType html setlocal tabstop=2
-autocmd FileType html setlocal textwidth=78
+autocmd FileType htmldjango setlocal tabstop=2
+autocmd FileType javascript setlocal tabstop=2
+autocmd FileType jst setlocal tabstop=2
+autocmd FileType jst setlocal textwidth=78
 autocmd FileType c setlocal tabstop=4
 autocmd FileType python setlocal tabstop=4
 autocmd FileType python setlocal foldmethod=indent
 autocmd FileType css setlocal tabstop=2
+autocmd FileType scss setlocal tabstop=2
 autocmd FileType php setlocal tabstop=2
 autocmd FileType vim setlocal foldmethod=marker
 autocmd FileType vim setlocal foldlevel=0
-autocmd FileType htmldjango let b:surround_37 = "{% \r %}"
-autocmd FileType htmldjango let b:surround_45 = "{{ \r }}"
+autocmd FileType htmldjango let b:surround_37 = "{% \r %}" " %
+autocmd FileType htmldjango let b:surround_45 = "{{ \r }}" " -
 autocmd FileType vimwiki setlocal nowrap
 autocmd FileType vimwiki setlocal shiftwidth=4
 autocmd FileType vimwiki setlocal tabstop=4
@@ -182,6 +195,12 @@ autocmd FileType markdown setlocal tabstop=4
 autocmd FileType markdown setlocal textwidth=78
 autocmd FileType markdown let b:coc_suggest_disable = 1
 autocmd filetype todo setlocal omnifunc=todo#Complete
+
+"augroup AutoSaveFolds
+    "autocmd!
+    "autocmd BufWinLeave * mkview
+    "autocmd BufWinEnter * silent loadview
+"augroup END
 "autocmd FileType help wincmd L
 "}}}
 "{{{--- APPEARANCE ---
@@ -227,7 +246,7 @@ endfunction
 let g:netrw_banner=0
 let g:netrw_browse_split=4
 let g:netrw_liststyle=3
-let g:netrw_winsize=15
+let g:netrw_winsize=20
 "}}}
 "{{{--- Other PLUGINS ---
 
@@ -239,7 +258,7 @@ let g:vimwiki_list = [{'path': '~/projects/wiki/', 'syntax': 'markdown', 'ext': 
 let g:vimwiki_hl_headers = 1
 let g:vimwiki_global_ext = 0
 "nmap <leader>wp :cd %:p:h<cr>:!git commit -a -m "vim autocommit"; git push<cr>
-nmap <leader>wp :!bash /home/yashkir/projects/wiki/autocommit.sh<CR>
+nmap <leader>vwp :!bash /home/yashkir/projects/wiki/autocommit.sh<CR>
 
 "This allows us to check the syntax group under the cursor
 nmap <leader>q :call <SID>SynStack()<CR>
@@ -288,6 +307,9 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap <silent> gq <Plug>(coc-action-do-quickfix)
+
+"COC ACTION is awesome
+nmap <silent> <leader>a :CocAction<cr>
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
