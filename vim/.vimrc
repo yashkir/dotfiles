@@ -18,6 +18,9 @@ Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-abolish'
 Plug 'airblade/vim-gitgutter'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'fannheyward/coc-marketplace'
@@ -53,11 +56,16 @@ Plug 'liuchengxu/vim-which-key'
 "Plug 'dbeniamine/cheat.sh-vim'
 Plug 'godlygeek/tabular'
 Plug 'ledger/vim-ledger'
-Plug 'SirVer/ultisnips'
+"Plug 'SirVer/ultisnips'
 "Plug 'plasticboy/vim-markdown'
+Plug 'dsznajder/vscode-es7-javascript-react-snippets', { 'do': 'yarn install --frozen-lockfile && yarn compile' }
+Plug 'prettier/vim-prettier', {
+      \ 'do': 'yarn install',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
 call plug#end()
 "}}}
 "{{{--- BASIC SETs ---
+set textwidth=120
 set nocompatible
 set tabstop=4
 set shiftwidth=0
@@ -101,7 +109,7 @@ set undodir=~/.vim/undo/
 let g:termdebug_wide = 163
 "}}}
 "{{{--- BINDS ---
-nmap W :w<cr>
+nmap <leader>w :w<cr>
 nnoremap <SPACE> <Nop>
 let mapleader = " "
 let maplocalleader = "\\"
@@ -124,11 +132,10 @@ nmap <leader><rl> :exec '!'.getline('.')
 "map <Space> za
 
 map <leader>mm :w<CR>:make!<CR>
-map <leader>ty :w<CR>:!yarn run test<CR>
 map <leader>w :w<CR>
 map <leader>h :set hlsearch!<CR>
 map <leader>md :InstantMarkdownPreview<CR>
-map <leader>td :e ~/projects/todo/todo.txt<CR>
+map <leader>t :NERDTreeToggle<CR>
 
 " greatest remap
 vnoremap <leader>p "_dP
@@ -146,6 +153,7 @@ map <leader>g :GitGutterToggle<CR>
 map <leader>p :Files ~/projects/<CR>
 map <leader>f~ :Files ~<CR>
 map <leader>f. :Files .<CR>
+map <leader>b :Buffers<CR>
 map <leader>fh :History<CR>
 map <leader>G :Git<CR>
 map <leader>fh :History<CR>
@@ -165,6 +173,8 @@ nmap <leader>sr :SyntasticReset<CR>
 map <leader>cn :cn<CR>
 map <leader>cp :cp<CR>
 
+map <leader>gp :Prettier<CR>
+
 " nice pastes
 nmap <silent> <leader>p* :set paste<CR>"*p:set nopaste<CR>
 nmap <silent> <leader>p+ :set paste<CR>"+p:set nopaste<CR>
@@ -176,14 +186,19 @@ autocmd FileType make setlocal noexpandtab
 autocmd FileType html setlocal tabstop=2
 autocmd FileType htmldjango setlocal tabstop=2
 autocmd FileType javascript setlocal tabstop=2
+autocmd FileType typescript setlocal tabstop=2
+autocmd FileType javascriptreact setlocal tabstop=2
+autocmd FileType typescriptreact setlocal tabstop=2
 autocmd FileType jst setlocal tabstop=2
 autocmd FileType jst setlocal textwidth=78
 autocmd FileType c setlocal tabstop=4
 autocmd FileType python setlocal tabstop=4
 autocmd FileType python setlocal foldmethod=indent
 autocmd FileType css setlocal tabstop=2
+autocmd FileType less setlocal tabstop=2
 autocmd FileType scss setlocal tabstop=2
 autocmd FileType php setlocal tabstop=2
+autocmd FileType elm setlocal tabstop=2
 autocmd FileType vim setlocal foldmethod=marker
 autocmd FileType vim setlocal foldlevel=0
 autocmd FileType htmldjango let b:surround_37 = "{% \r %}" " %
@@ -195,6 +210,8 @@ autocmd FileType markdown setlocal tabstop=4
 autocmd FileType markdown setlocal textwidth=78
 autocmd FileType markdown let b:coc_suggest_disable = 1
 autocmd filetype todo setlocal omnifunc=todo#Complete
+autocmd filetype sql set filetype=plsql
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.svelte,*.yaml,*.html PrettierAsync
 
 "augroup AutoSaveFolds
     "autocmd!
@@ -218,8 +235,8 @@ if !exists('g:airline_symbols')
 endif
 let g:airline_symbols.linenr = ''
 let g:airline_symbols.maxlinenr = ''
-let g:airline_symbols.branch = '⭠'
-let g:airline_symbols.readonly = '⭤'
+"let g:airline_symbols.branch = '⭠'
+"let g:airline_symbols.readonly = '⭤'
 let g:airline_symbols.whitespace = ''
 
 let g:jellybeans_use_term_italics = 1
@@ -249,6 +266,8 @@ let g:netrw_liststyle=3
 let g:netrw_winsize=20
 "}}}
 "{{{--- Other PLUGINS ---
+"--- FZF ---
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
 
 "--- VIMWIKI ---
 let g:taskwiki_markup_syntax = "markdown"
@@ -298,6 +317,9 @@ let g:syntastic_mode_map = { "mode": "passive" }
 autocmd FileType vimwiki let b:surround_98 = "**\r**"
 autocmd FileType markdown let b:surround_98 = "**\r**"
 ""let g:Todo_fold_char='+'
+let g:prettier#config#print_width = 120
+let g:prettier#autoformat = 0
+let g:prettier#autoformat_require_pragma = 0
 
 "}}}
 "{{{--- COC ---
@@ -309,7 +331,9 @@ nmap <silent> gr <Plug>(coc-references)
 nmap <silent> gq <Plug>(coc-action-do-quickfix)
 
 "COC ACTION is awesome
-nmap <silent> <leader>a :CocAction<cr>
+nmap <silent> <leader>ga :CocAction<cr>
+xmap <silent> <leader>a <Plug>(coc-codeaction-selected)
+nmap <silent> <leader>a <Plug>(coc-codeaction-selected)
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -343,6 +367,17 @@ function! s:check_back_space() abort
 endfunction
 
 let g:coc_snippet_next = '<tab>'
+
+" HELP SCROLLING
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+    nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+    nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+    inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+    inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+    vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+    vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+endif
 "}}}
 
+nnoremap <leader>gb :Git blame<cr>
 " vim: set foldmethod=marker

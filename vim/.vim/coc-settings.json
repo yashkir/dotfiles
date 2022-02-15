@@ -1,5 +1,5 @@
 {
-  "suggest.triggerCompletionWait": 500,
+  "suggest.triggerCompletionWait": 250,
   "tsserver.reportStyleChecksAsWarnings": false,
   "python.autoComplete.extraPaths": ["/home/yashkir/.local/lib/python3.8/site-packages"],
   "python.jediEnabled": true,
@@ -8,8 +8,31 @@
   "javascript.suggestionActions.enabled": false,
   "typescript.showUnused": false,
   "signature.hideOnTextChange": true,
+  "hover.floatMaxHeight": 25,
+  "eslint.alwaysShowStatus": true,
+  "eslint.run": "onSave",
   "emmet.includeLanguages": {
     "jst": "html",
     "htmldjango": "html"
-  }
+  },
+  "languageserver": {    
+      "elmLS": {    
+          "command": "elm-language-server",    
+          "filetypes": [    
+              "elm"    
+          ],    
+          "rootPatterns": [    
+              "elm.json"    
+          ],    
+          "trace.server": "verbose",    
+          "initializationOptions": {    
+              "elmPath": "elm",    
+              "elmFormatPath": "elm-format",    
+              "elmTestPath": "elm-test",    
+              "disableElmLSDiagnostics": false,    
+              "skipInstallPackageConfirmation": false    
+          }    
+      }    
+  },
+  "solargraph.useBundler": true
 }

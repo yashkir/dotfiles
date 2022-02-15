@@ -1,6 +1,6 @@
 set $mod Mod4
 
-font pango:Iosevka Term Extended 11
+font pango:Iosevka 11
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
@@ -73,21 +73,21 @@ bindsym $mod+a focus parent
 
 # focus the child container
 #bindsym $mod+d focus child
-bindsym $mod+Shift+o move workspace to output HDMI1
+bindsym $mod+Shift+o move workspace to output HDMI-1
 bindsym $mod+Shift+p move workspace to output primary
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1:wrk"
-set $ws2 "2:www"
-set $ws3 "3:com"
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
 set $ws4 "4"
 set $ws5 "5"
 set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
-set $ws10 "10: mon"
+set $ws10 "10"
 
 # Monitors
 #workspace 1 output secondary
@@ -158,5 +158,5 @@ bar {
 
 # Force zoom onto one workspace and block focus stealing
 focus_on_window_activation urgent
-assign [class="zoom"] 3:com
+assign [class="zoom"] 3
 no_focus [class="zoom"]

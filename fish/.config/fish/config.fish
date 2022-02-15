@@ -17,6 +17,7 @@ bind \cd -M insert delete-char
 bind \cd -M visual delete-char
 
 set -g EDITOR /usr/bin/vim
+set -g PAGER less
 
 alias t todo.sh
 alias tl "todo.sh ls"
