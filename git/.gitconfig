@@ -1,0 +1,13 @@
+[user]
+	email = yuriy.yashkir@gmail.com
+	name = Yuriy Yashkir
+[alias]
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow bold)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+	l = log --color --pretty=format:'%Cred%h%Creset -%C(yellow bold)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+[core]
+	excludesfile = /home/yashkir/.gitignore_global
+[init]
+	defaultBranch = master
+[merge "npm-merge-driver"]
+	name = automatically merge npm lockfiles
+	driver = npx npm-merge-driver merge %A %O %B %P
