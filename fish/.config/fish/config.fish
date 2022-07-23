@@ -23,3 +23,6 @@ alias t todo.sh
 alias tl "todo.sh ls"
 alias repo "cd ~/projects/GA/"
 alias ls "ls --color --group-directories-first"
+
+# opam configuration
+source /home/yashkir/.opam/opam-init/init.fish > /dev/null 2> /dev/null; or true
